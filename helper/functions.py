@@ -1,7 +1,7 @@
 from helper.libraries import st, re
 
 
-def display_summary(summary_df, classification_df, topic_extraction_df, columns, company, year, show_topics):
+def display_summary(summary_df, classification_df, topic_extraction_df, columns, company, year, show_topics, show_score):
     col1, col2 = st.columns(2)
 
     with col1:
@@ -26,8 +26,14 @@ def display_summary(summary_df, classification_df, topic_extraction_df, columns,
 
         for topic in topics:
             if not bool(re.search(r'\d', topic[1])):
-                replace_with = '<span style="background: #EAEA7F; border-radius: 0.33rem; padding: 1.5px ;">'+ str(topic[1]) +'</span>'
+
+                if not show_score:
+                    replace_with = '<span style="background: #EAEA7F; border-radius: 0.33rem; padding: 1.5px ;">'+ str(topic[1]) +'</span>'
+                else:
+                    replace_with = '<span style="background: #EAEA7F; border-radius: 0.33rem; padding: 1.5px ;">' + str(topic[1]) + '<span style="font-size:12px; padding-left: 8px; padding-right: 8px; opacity:0.5">' + str(round(topic[0], 1)) + '</span></span>'
+
                 text = re.sub(str(topic[1]), replace_with, text)
+                #text_score = re.sub(str(topic[1]), replace_with, text)
 
         if show_topics:
             st.markdown("<p style='text-align: justify;'>" + text + "</p>", unsafe_allow_html=True)
