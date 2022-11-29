@@ -22,7 +22,7 @@ def app():
     if show_topics:
         show_score = st.sidebar.checkbox("Show Frequency and Co-occurence Score")
 
-    st.markdown("<h1 style='text-align: center;'>Financial Dashboard for Market Intelligence</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center;'>Financial Dashboard</h1>", unsafe_allow_html=True)
 
     if which_summary == "Everything":
         display_summary(summary_df, classification_df, topic_extraction_df, summary_df.columns[2:], company, year, show_topics, show_score)
