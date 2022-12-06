@@ -38,7 +38,7 @@ def display_summary(summary_df, classification_df, topic_extraction_df, columns,
                 #st.write(str(topic[1]))
                 #st.write(re.sub(str(topic[1]), replace_with, text))
                 #if not any(chr.isdigit() for chr in str(topic[1])):
-                    #text = re.sub(str(topic[1]), replace_with, text)
+                text = re.sub(str(topic[1]), replace_with, text)
 
                 #st.write(text)
                 #text_score = re.sub(str(topic[1]), replace_with, text)
