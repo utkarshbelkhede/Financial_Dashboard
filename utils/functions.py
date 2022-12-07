@@ -1,10 +1,8 @@
 from utils.libraries import st, re
 
 
-#set_of_words = set(words.words())
-
-
-def display_summary(summary_df, classification_df, topic_extraction_df, columns, company, year, show_topics, show_score):
+def display_summary(summary_df, classification_df, topic_extraction_df, columns, company, year, show_topics,
+                    show_score):
     col1, col2 = st.columns(2)
 
     with col1:
@@ -26,22 +24,20 @@ def display_summary(summary_df, classification_df, topic_extraction_df, columns,
         text = summary_result.loc[summary_result.index[0], col]
 
         topics = eval(topic_extraction_result.loc[topic_extraction_result.index[0], col])
+        topics = list(set(topics))
 
         for topic in topics:
             if not bool(re.search(r'\d', topic[1])):
-
                 if not show_score:
-                    replace_with = '<span style="background: #EAEA7F; border-radius: 0.33rem; padding: 1.5px ;">'+ str(topic[1]) +'</span>'
+                    replace_with = '<span style="background: #EAEA7F; border-radius: 0.33rem; padding: 1.5px ;">' + str(
+                        topic[1]) + '</span>'
+                    text = re.sub(str(topic[1]), replace_with, text)
                 else:
-                    replace_with = '<span style="background: #EAEA7F; border-radius: 0.33rem; padding: 1.5px ;">' + str(topic[1]) + '<span style="font-size:12px; padding-left: 8px; padding-right: 8px; opacity:0.5">' + str(round(topic[0], 1)) + '</span></span>'
-
-                #st.write(str(topic[1]))
-                #st.write(re.sub(str(topic[1]), replace_with, text))
-                #if not any(chr.isdigit() for chr in str(topic[1])):
-                text = re.sub(str(topic[1]), replace_with, text)
-
-                #st.write(text)
-                #text_score = re.sub(str(topic[1]), replace_with, text)
+                    replace_with = '<span style="background: #EAEA7F; border-radius: 0.33rem; padding: 1.5px ;">' + str(
+                        topic[
+                            1]) + '<span style="font-size:12px; padding-left: 8px; padding-right: 8px; opacity:0.5">' + str(
+                        round(topic[0], 1)) + '</span></span>'
+                    text = re.sub(str(topic[1]), replace_with, text, count=1)
 
         if show_topics:
             st.markdown("<p style='text-align: justify;'>" + text + "</p>", unsafe_allow_html=True)

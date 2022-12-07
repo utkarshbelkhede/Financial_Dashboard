@@ -16,7 +16,7 @@ def app():
     company = st.sidebar.selectbox("Choose Company", list(summary_df.loc[:, "Company"].unique()))
     year = st.sidebar.selectbox("Choose Year", list(summary_df.loc[:, "Year"].unique()))
 
-    which_summary = st.sidebar.selectbox("See Summary For", ["Everything", "Section-wise"])
+    which_summary = st.sidebar.selectbox("See Summary For", ["All Sections", "Section-wise"])
 
     show_topics = st.sidebar.checkbox("Show Important Words")
 
@@ -26,7 +26,7 @@ def app():
 
     st.markdown("<h1 style='text-align: center;'>Financial Dashboard</h1>", unsafe_allow_html=True)
 
-    if which_summary == "Everything":
+    if which_summary == "All Sections":
         display_summary(summary_df, classification_df, topic_extraction_df, summary_df.columns[2:], company, year,
                         show_topics, show_score)
     else:
