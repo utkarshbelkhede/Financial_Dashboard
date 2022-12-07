@@ -64,5 +64,5 @@ def display_summary(summary_df, classification_df, topic_extraction_df, columns,
                 )
 
         with col2:
-            st.markdown("<h5 style='text-align: right;'>" + '%.2f' % sentiment['score'] + "</h5>",
+            st.markdown("<h5 style='text-align: right;'>" + '%.3f' % sentiment['score'] + "</h5>",
                         unsafe_allow_html=True)
