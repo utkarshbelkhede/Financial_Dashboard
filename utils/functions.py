@@ -27,17 +27,15 @@ def display_summary(summary_df, classification_df, topic_extraction_df, columns,
         topics = list(set(topics))
 
         for topic in topics:
-            if not bool(re.search(r'\d', topic[1])):
-                if not show_score:
-                    replace_with = '<span style="background: #EAEA7F; border-radius: 0.33rem; padding: 1.5px ;">' + str(
-                        topic[1]) + '</span>'
-                    text = re.sub(str(topic[1]), replace_with, text)
-                else:
-                    replace_with = '<span style="background: #EAEA7F; border-radius: 0.33rem; padding: 1.5px ;">' + str(
-                        topic[
-                            1]) + '<span style="font-size:12px; padding-left: 8px; padding-right: 8px; opacity:0.5">' + str(
-                        round(topic[0], 1)) + '</span></span>'
-                    text = re.sub(str(topic[1]), replace_with, text, count=1)
+            if not bool(re.search(r'\d', topic[1])) and len(topic[1]) > 3:
+                clean_topic = re.sub(r'[^\w\s]', '', topic[1])
+                if show_topics and show_score:
+                    replace_with = '<span style="background: #EAEA7F; border-radius: 0.33rem; padding: 1.5px ;">(' + clean_topic + '<span style="font-size:12px; padding-left: 8px; padding-right: 8px; opacity:0.5">' + str(
+                        round(topic[0], 1)) + '</span>)</span>'
+                    text = re.sub(clean_topic, replace_with, text, count=1)
+                elif show_topics:
+                    replace_with = '<span style="background: #EAEA7F; border-radius: 0.33rem; padding: 1.5px ;">' + clean_topic + '</span>'
+                    text = re.sub(clean_topic, replace_with, text)
 
         if show_topics:
             st.markdown("<p style='text-align: justify;'>" + text + "</p>", unsafe_allow_html=True)
